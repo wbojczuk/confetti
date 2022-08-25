@@ -1,16 +1,17 @@
 "use strict";
 
 const confettiAnim = {
-    confettiHeight: [-150, -350],
+    confettiHeight: [-150, -450],
     confettiHeightUnit: "px",
     confettiSpreadAmt: [0, 100],
     confettiSpreadUnit: "px",
-    confettiColors: ["#C70C54", "#5ED72D", "#F3F75C", "#68DBF1", "#F168ED"],
+    confettiColors: ["#C70C54", "#5ED72D", "#FBFFAA", "#68DBF1", "#F168ED"],
     confettiSize: [4, 10],
     confettiSizeUnit: "px",
     confettiAmt: 45,
     confettiSpin: [150, 280],
     confettiSpeed: [3000, 4000],
+    confettiDelay: [0, 200],
 
     // Setup
     setup: ()=>{
@@ -64,7 +65,7 @@ const confettiAnim = {
 
             let spin = Math.random() * (confettiAnim.confettiSpin[1] - confettiAnim.confettiSpin[0]) + confettiAnim.confettiSpin[0];
             if(Math.round(Math.random() * (2-1)+1)==1){spin = spin*-1}
-            
+            const beforePerc = Math.round(Math.random() * (20-currentPerc)+currentPerc);
 
             confettiStyles.textContent += `
             @keyframes confetti${confettiAnim.confettiInstances}${i}{
@@ -72,6 +73,7 @@ const confettiAnim = {
                     transform: translateY(0) translateX(0) rotate(0);
                     width:0;
                     height:0;
+                    
                    
                 }
                 20%{
@@ -79,16 +81,20 @@ const confettiAnim = {
                     width: ${pieceSize}${confettiAnim.confettiSizeUnit};
                     height: ${pieceSize}${confettiAnim.confettiSizeUnit};
                     
+                    
                 }
 
+                ${beforePerc}%{opacity:1;}
 
                 ${currentPerc}%{
                     width:0;
                     height:0;
-                
+                opacity:0;
                 }
 
-                100%{transform: translateY(0) translateX(${spread}${confettiAnim.confettiSpreadUnit}) rotate(0);}
+                100%{transform: translateY(0) translateX(${spread}${confettiAnim.confettiSpreadUnit}) rotate(0);
+                opacity:0;
+            }
             }
             `;
         }
@@ -109,10 +115,14 @@ const confettiAnim = {
 
             const curSpeed = (Math.random() * (confettiAnim.confettiSpeed[1] - confettiAnim.confettiSpeed[0]) + confettiAnim.confettiSpeed[0]); 
 
+            const curDelay = (Math.random() * (confettiAnim.confettiDelay[1] - confettiAnim.confettiDelay[0]) + confettiAnim.confettiDelay[0]); 
+
             const tempPiece = confettiPiece.cloneNode(false);
             tempPiece.setAttribute("style", `
                 background-color: ${confettiAnim.confettiColors[curColor]};
+                
                 animation: confetti${confettiAnim.confettiInstances}${i} ${curSpeed}ms forwards;
+                animation-delay: ${curDelay}ms;
             `);
             const currentShape = Math.round(Math.random() * (3-1)+1);
             if(currentShape == 2){
@@ -129,14 +139,17 @@ const confettiAnim = {
         }
 
         confettiAnim.confettiInstances++;
+
+        const endTime = confettiAnim.confettiDelay[1] + confettiAnim.confettiSpeed[1];
         
             elem.setAttribute("data-confettioff", "true");
             setTimeout(()=>{
                 confettiWrapper.remove();
-            },confettiAnim.confettiSpeed[1]);
+                confettiStyles.remove();
+            }, endTime);
             setTimeout(()=>{
                 elem.removeAttribute("data-confettioff");
-            },confettiAnim.confettiSpeed[1]/2);
+            },endTime/2);
     },
 
     confettiInstances: 0,
