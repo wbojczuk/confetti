@@ -3,7 +3,7 @@
 const confettiAnim = {
     confettiHeight: [-150, -450],
     confettiHeightUnit: "px",
-    confettiSpreadAmt: [0, 100],
+    confettiSpread: [0, 100],
     confettiSpreadUnit: "px",
     confettiColors: ["#C70C54", "#5ED72D", "#FBFFAA", "#68DBF1", "#F168ED"],
     confettiSize: [4, 10],
@@ -47,23 +47,65 @@ const confettiAnim = {
 
         // STYLESHEET INJECTION
 
+        // SETTINGS
+
+        let colorSettings = confettiAnim.confettiColors;
+        if(elem.hasAttribute("data-colors")){
+            colorSettings = JSON.parse(elem.dataset.colors);
+        }
+
+        let heightSettings = confettiAnim.confettiHeight;
+        if(elem.hasAttribute("data-height")){
+            heightSettings = JSON.parse(elem.dataset.height);
+        }
+
+        let speedSettings = confettiAnim.confettiSpeed;
+        if(elem.hasAttribute("data-speed")){
+            speedSettings = JSON.parse(elem.dataset.speed);
+        }
+
+        let sizeSettings = confettiAnim.confettiSize;
+        if(elem.hasAttribute("data-size")){
+            sizeSettings = JSON.parse(elem.dataset.size);
+        }
+
+        let spinSettings = confettiAnim.confettiSpin;
+        if(elem.hasAttribute("data-spin")){
+            spinSettings = JSON.parse(elem.dataset.spin);
+        }
+
+        let delaySettings = confettiAnim.confettiDelay;
+        if(elem.hasAttribute("data-delay")){
+            delaySettings = JSON.parse(elem.dataset.delay);
+        }
+
+        let spreadSettings = confettiAnim.confettiSpread;
+        if(elem.hasAttribute("data-spread")){
+            spreadSettings = JSON.parse(elem.dataset.spread);
+        }
+
+        let amtSettings = confettiAnim.confettiAmt;
+        if(elem.hasAttribute("data-amt")){
+            amtSettings = elem.dataset.spread;
+        }
+
         const confettiStyles = document.createElement("style");
         confettiStyles.id = `confettiStyles${confettiAnim.confettiInstances}`;
         
         //INJECT ANIMATIONS 
-        for(let i = 0; i < confettiAnim.confettiAmt; i++){
+        for(let i = 0; i < amtSettings; i++){
 
-            const pieceSize = (Math.random() * (confettiAnim.confettiSize[1] - confettiAnim.confettiSize[0]) + confettiAnim.confettiSize[0]); 
+            const pieceSize = (Math.random() * (sizeSettings[1] - sizeSettings[0]) + sizeSettings[0]); 
 
 
-            let spread = Math.random() * (confettiAnim.confettiSpreadAmt[1] - confettiAnim.confettiSpreadAmt[0]) + confettiAnim.confettiSpreadAmt[0];
+            let spread = Math.random() * (spreadSettings[1] - spreadSettings[0]) + spreadSettings[0];
             if(Math.round(Math.random() * (1-2)+1)==1){spread = -1 * (spread);}
 
-            const height = Math.random() * (confettiAnim.confettiHeight[1] - confettiAnim.confettiHeight[0]) + confettiAnim.confettiHeight[0];
+            const height = Math.random() * (heightSettings[1] - heightSettings[0]) + heightSettings[0];
             
             const currentPerc  = Math.round(Math.random() * (100 - 45) + 45);
 
-            let spin = Math.random() * (confettiAnim.confettiSpin[1] - confettiAnim.confettiSpin[0]) + confettiAnim.confettiSpin[0];
+            let spin = Math.random() * (spinSettings[1] - spinSettings[0]) + spinSettings[0];
             if(Math.round(Math.random() * (2-1)+1)==1){spin = spin*-1}
             const beforePerc = Math.round(Math.random() * (20-currentPerc)+currentPerc);
 
@@ -106,20 +148,20 @@ const confettiAnim = {
         const confettiPiece = document.createElement("div");
         confettiPiece.className = "as-confetti-piece";
         
-        const colorAmt = confettiAnim.confettiColors.length;
+        const colorAmt = colorSettings.length;
 
-        for(let i = 0; i < confettiAnim.confettiAmt; i++){
+        for(let i = 0; i < amtSettings; i++){
             
             
             const curColor = Math.floor(Math.random() * colorAmt);
 
-            const curSpeed = (Math.random() * (confettiAnim.confettiSpeed[1] - confettiAnim.confettiSpeed[0]) + confettiAnim.confettiSpeed[0]); 
+            const curSpeed = (Math.random() * (speedSettings[1] - speedSettings[0]) + speedSettings[0]); 
 
-            const curDelay = (Math.random() * (confettiAnim.confettiDelay[1] - confettiAnim.confettiDelay[0]) + confettiAnim.confettiDelay[0]); 
+            const curDelay = (Math.random() * (delaySettings[1] - delaySettings[0]) + delaySettings[0]); 
 
             const tempPiece = confettiPiece.cloneNode(false);
             tempPiece.setAttribute("style", `
-                background-color: ${confettiAnim.confettiColors[curColor]};
+                background-color: ${colorSettings[curColor]};
                 
                 animation: confetti${confettiAnim.confettiInstances}${i} ${curSpeed}ms forwards;
                 animation-delay: ${curDelay}ms;
@@ -140,12 +182,36 @@ const confettiAnim = {
 
         confettiAnim.confettiInstances++;
 
-        const endTime = confettiAnim.confettiDelay[1] + confettiAnim.confettiSpeed[1];
+        const endTime = speedSettings[1] + delaySettings[1];
         
             elem.setAttribute("data-confettioff", "true");
             setTimeout(()=>{
                 confettiWrapper.remove();
                 confettiStyles.remove();
+                if(elem.hasAttribute("data-speed")){
+                    elem.removeAttribute("data-speed");
+                }
+                if(elem.hasAttribute("data-height")){
+                    elem.removeAttribute("data-height");
+                }
+                if(elem.hasAttribute("data-colors")){
+                    elem.removeAttribute("data-colors");
+                }
+                if(elem.hasAttribute("data-amt")){
+                    elem.removeAttribute("data-amt");
+                }
+                if(elem.hasAttribute("data-spin")){
+                    elem.removeAttribute("data-spin");
+                }
+                if(elem.hasAttribute("data-delay")){
+                    elem.removeAttribute("data-delay");
+                }
+                if(elem.hasAttribute("data-size")){
+                    elem.removeAttribute("data-size");
+                }
+                if(elem.hasAttribute("data-spread")){
+                    elem.removeAttribute("data-spread");
+                }
             }, endTime);
             setTimeout(()=>{
                 elem.removeAttribute("data-confettioff");
