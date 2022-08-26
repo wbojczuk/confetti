@@ -188,30 +188,6 @@ const confettiAnim = {
             setTimeout(()=>{
                 confettiWrapper.remove();
                 confettiStyles.remove();
-                if(elem.hasAttribute("data-speed")){
-                    elem.removeAttribute("data-speed");
-                }
-                if(elem.hasAttribute("data-height")){
-                    elem.removeAttribute("data-height");
-                }
-                if(elem.hasAttribute("data-colors")){
-                    elem.removeAttribute("data-colors");
-                }
-                if(elem.hasAttribute("data-amt")){
-                    elem.removeAttribute("data-amt");
-                }
-                if(elem.hasAttribute("data-spin")){
-                    elem.removeAttribute("data-spin");
-                }
-                if(elem.hasAttribute("data-delay")){
-                    elem.removeAttribute("data-delay");
-                }
-                if(elem.hasAttribute("data-size")){
-                    elem.removeAttribute("data-size");
-                }
-                if(elem.hasAttribute("data-spread")){
-                    elem.removeAttribute("data-spread");
-                }
             }, endTime);
             setTimeout(()=>{
                 elem.removeAttribute("data-confettioff");
