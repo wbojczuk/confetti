@@ -1,13 +1,13 @@
 "use strict";
 
 const confettiAnim = {
-    confettiHeight: [-150, -450],
-    confettiHeightUnit: "px",
-    confettiSpread: [0, 100],
-    confettiSpreadUnit: "px",
+    confettiHeight: [-7, -25],
+    confettiHeightUnit: "vw",
+    confettiSpread: [0, 6],
+    confettiSpreadUnit: "vw",
     confettiColors: ["#C70C54", "#5ED72D", "#FBFFAA", "#68DBF1", "#F168ED"],
-    confettiSize: [4, 10],
-    confettiSizeUnit: "px",
+    confettiSize: [0.2, 0.6],
+    confettiSizeUnit: "vw",
     confettiAmt: 45,
     confettiSpin: [150, 280],
     confettiSpeed: [3000, 4000],
