@@ -86,7 +86,7 @@ const confettiAnim = {
 
         let amtSettings = confettiAnim.confettiAmt;
         if(elem.hasAttribute("data-amt")){
-            amtSettings = elem.dataset.spread;
+            amtSettings = parseFloat(elem.dataset.amt);
         }
 
         const confettiStyles = document.createElement("style");
