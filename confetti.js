@@ -15,6 +15,38 @@ const confettiAnim = {
 
     // Setup
     setup: ()=>{
+
+        // INJECT MAIN STYLES
+        const confettiStyles = document.createElement("style");
+        confettiStyles.textContent = `
+        .as-confetti-piece{
+            display: inline-block;
+            position: absolute;
+            
+        }
+        
+        .as-confetti-wrapper{
+            position: absolute;
+            top:0;
+            left:0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            pointer-events: none;
+        }
+        
+        .as-confetti-center{
+            display: inline-block;
+            width: 1px;
+            height: 1px;
+        }
+        `;
+        document.getElementsByTagName("head")[0].append(confettiStyles);
+
+
         if(document.querySelector(".as-confetti")){
             const elems = document.querySelectorAll(".as-confetti");
             const elemsLength = elems.length;
