@@ -1,20 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="notranslate" translate="no">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate" />
     <title>Confetti Testing</title>
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
+        body{
+            background: rgb(243, 49, 139);  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #1565C0, rgb(243, 49, 139));  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #1565C0, rgb(243, 49, 139)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+        }
+        .site-title{
+            font-family: "Rubik Dirt", cursive;
+            font-size: 10vw;
+            margin-top: 10vw;
+        }
+        .confetti-test{
+    margin-top: 20vw;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Rubik Dirt", cursive;
+    animation:fade_in_confetts 2s forwards;
+    font-size: 3vw;
+    width: 300px;
+    aspect-ratio: 3/1;
+    background-color: rgb(153, 14, 79);
+    color: #1b7ae6;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.confetti-test:hover {
+    background-color: rgb(243, 49, 139);
+   
+}
+.confetts {
+    animation:fade_in_confetts 2s forwards;
+}
+@keyframes fade_in_confetts {
+    0%{
+        opacity:0;
+    }
+    50%{
+        opacity:0;
+    }
+    100%{
+        opacity:1;
+    }
+}
+
+
+    </style>
     
 </head>
 <body>
+    <div class="center">
+        <div class="site-title">
+            <span class="confetts" id="confetti1" data-spread='[0,20]' data-height='[-7, -15]' data-colors='["#F168ED"]' data-amt="25" style="color:#F168ED;">Confetti</span><span class="confetts" id="confetti2" data-height='[-7, -15]' data-spread='[0,5]' data-colors='["#68DBF1"]' data-amt="10" style="color:#68DBF1;">.js</span></div>
+    </div>
+
     <div class="center">
         <div data-colors='["#C70C54", "#5ED72D", "#FBFFAA", "#68DBF1", "#F168ED"]' id="confettiTest" class="confetti-test">Confetti</div>
     </div>
     <script src="confetti.js"></script>
     <script defer>
         document.getElementById("confettiTest").addEventListener("click", confettiAnim.confettiHandler);
+        setTimeout(
+            ()=>{
+                confettiAnim.confettiAnim(document.getElementById("confetti1"));
+                confettiAnim.confettiAnim(document.getElementById("confetti2"));
+            },2100
+        );
     </script>
 
     
