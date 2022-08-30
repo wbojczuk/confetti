@@ -28,7 +28,7 @@ background: linear-gradient(to right, #1565C0, rgb(243, 49, 139)); /* W3C, IE 10
     align-items: center;
     justify-content: center;
     font-family: "Rubik Dirt", cursive;
-    
+    animation:fade_in_confetts 2s forwards;
     font-size: 3vw;
     width: 300px;
     aspect-ratio: 3/1;
@@ -57,6 +57,20 @@ background: linear-gradient(to right, #1565C0, rgb(243, 49, 139)); /* W3C, IE 10
     background-color: rgb(243, 49, 139);
    
 }
+.confetts {
+    animation:fade_in_confetts 2s forwards;
+}
+@keyframes fade_in_confetts {
+    0%{
+        opacity:0;
+    }
+    50%{
+        opacity:0;
+    }
+    100%{
+        opacity:1;
+    }
+}
 
 
     </style>
@@ -65,7 +79,7 @@ background: linear-gradient(to right, #1565C0, rgb(243, 49, 139)); /* W3C, IE 10
 <body>
     <div class="center">
         <div class="site-title">
-            <span class="as-confetti" data-spread='[0,20]' data-height='[-7, -15]' data-colors='["#F168ED"]' data-amt="25" style="color:#F168ED;">Confetti</span><span class="as-confetti" data-height='[-7, -15]' data-spread='[0,5]' data-colors='["#68DBF1"]' data-amt="10" style="color:#68DBF1;">.js</span></div>
+            <span class="confetts" id="confetti1" data-spread='[0,20]' data-height='[-7, -15]' data-colors='["#F168ED"]' data-amt="25" style="color:#F168ED;">Confetti</span><span class="confetts" id="confetti2" data-height='[-7, -15]' data-spread='[0,5]' data-colors='["#68DBF1"]' data-amt="10" style="color:#68DBF1;">.js</span></div>
     </div>
 
     <div class="center">
@@ -74,6 +88,12 @@ background: linear-gradient(to right, #1565C0, rgb(243, 49, 139)); /* W3C, IE 10
     <script src="confetti.js"></script>
     <script defer>
         document.getElementById("confettiTest").addEventListener("click", confettiAnim.confettiHandler);
+        setTimeout(
+            ()=>{
+                confettiAnim.confettiAnim(document.getElementById("confetti1"));
+                confettiAnim.confettiAnim(document.getElementById("confetti2"));
+            },2100
+        );
     </script>
 
     
